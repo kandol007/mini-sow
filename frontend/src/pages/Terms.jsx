@@ -30,9 +30,9 @@ export default function Terms({ onBack }) {
   const termsText = texts['terms.body'] || 'Terms content not found. Make sure DB contains the key "terms.body" for the selected language.';
 
   return (
-    <div className="terms-background" style={{ backgroundImage: `url(${WALLPAPER})` }}>
+    <div className="terms-page-wrapper" style={{ backgroundImage: `url(${WALLPAPER})` }}>
       {/* Top Navigation */}
-      <nav className="login-nav">
+      <nav className="terms-nav">
         <div className="nav-left">
           <img src={LOGO} alt="logo" className="nav-logo" />
         </div>
@@ -51,36 +51,50 @@ export default function Terms({ onBack }) {
                 alt="English" 
                 onClick={() => setLang('en')} 
                 className="flag-icon"
-                style={{ opacity: lang === 'en' ? 1 : 0.5 }}
+                style={{ opacity: lang === 'en' ? 1 : 0.5, cursor: 'pointer' }}
               />
               <img 
                 src={FLAG_SE} 
                 alt="Svenska" 
                 onClick={() => setLang('se')} 
                 className="flag-icon"
-                style={{ opacity: lang === 'se' ? 1 : 0.5 }}
+                style={{ opacity: lang === 'se' ? 1 : 0.5, cursor: 'pointer' }}
               />
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Terms Content */}
-      <div className="terms-page-content">
-        <h1 className="terms-page-title">{texts['terms.title'] || 'Terms'}</h1>
-        
-        <button onClick={onBack} className="terms-back-button">
-          {lang === 'en' ? 'Close and Go Back' : 'Stäng och Gå Tillbaka'}
-        </button>
+      {/* Scrollable Content Area */}
+      <div className="terms-scroll-container">
+        <div className="terms-content-inner">
+          {/* Title */}
+          <h1 className="terms-main-title">{texts['terms.title'] || 'Terms and conditions'}</h1>
+          
+          {/* Top Button */}
+          <button onClick={onBack} className="terms-action-button">
+            {lang === 'en' ? 'Close and Go Back' : 'Stäng och Gå Tillbaka'}
+          </button>
 
-        <div className="terms-text-box">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <div className="terms-text-content">
-              {termsText}
-            </div>
-          )}
+          {/* Terms Text Box */}
+          <div className="terms-content-box">
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '3rem', color: '#666' }}>
+                <p>Loading...</p>
+              </div>
+            ) : (
+              <div className="terms-text-display">
+                {termsText.split('\n').map((paragraph, idx) => (
+                  paragraph.trim() ? <p key={idx} style={{ marginBottom: '1rem' }}>{paragraph}</p> : <br key={idx} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Bottom Button */}
+          <button onClick={onBack} className="terms-action-button terms-bottom-button">
+            {lang === 'en' ? 'Close and Go Back' : 'Stäng och Gå Tillbaka'}
+          </button>
         </div>
       </div>
     </div>
