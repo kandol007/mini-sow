@@ -31,70 +31,33 @@ export default function Terms({ onBack }) {
   }, [lang]);
 
   useEffect(() => {
-  const scrollContainer = document.querySelector('.terms-scroll-container');
-  if (!scrollContainer) return;
+    const scrollContainer = document.querySelector('.terms-scroll-container');
+    
+    const handleScroll = () => {
+      if (!scrollContainer) return;
+      const currentScrollY = scrollContainer.scrollTop;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down & past 80px
+        setNavHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setNavHidden(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
 
-  let lastScrollYLocal = 0;
-  let startY = 0;
-  let isTouching = false;
-
-  const handleScroll = () => {
-    const currentScrollY = scrollContainer.scrollTop;
-
-    // hide nav on scroll down; show on scroll up
-    if (currentScrollY > lastScrollYLocal && currentScrollY > 80) {
-      setNavHidden(true);
-    } else if (currentScrollY < lastScrollYLocal) {
-      setNavHidden(false);
-    }
-    lastScrollYLocal = currentScrollY;
-  };
-
-  // --- prevent iOS rubber-band overscroll ---
-  const handleTouchStart = (e) => {
-    if (e.touches && e.touches.length === 1) {
-      startY = e.touches[0].clientY;
-      isTouching = true;
-    }
-  };
-
-  const handleTouchMove = (e) => {
-    if (!isTouching) return;
-    const currentY = (e.touches && e.touches[0].clientY) || 0;
-    const deltaY = currentY - startY;
-
-    const atTop = scrollContainer.scrollTop === 0;
-    const atBottom = Math.ceil(scrollContainer.scrollTop + scrollContainer.clientHeight) >= scrollContainer.scrollHeight;
-
-    // If at top and pulling down (deltaY > 0) -> prevent default (stop body bounce)
-    if (atTop && deltaY > 0) {
-      e.preventDefault();
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
     }
 
-    // If at bottom and pulling up (deltaY < 0) -> prevent default (stop body bounce)
-    if (atBottom && deltaY < 0) {
-      e.preventDefault();
-    }
-    // do NOT call stopPropagation — we only want to prevent the overscroll
-  };
-
-  const handleTouchEnd = () => {
-    isTouching = false;
-    startY = 0;
-  };
-
-  scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
-  scrollContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
-  scrollContainer.addEventListener('touchmove', handleTouchMove, { passive: false }); // passive:false so we can e.preventDefault()
-  scrollContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-  return () => {
-    scrollContainer.removeEventListener('scroll', handleScroll);
-    scrollContainer.removeEventListener('touchstart', handleTouchStart);
-    scrollContainer.removeEventListener('touchmove', handleTouchMove);
-    scrollContainer.removeEventListener('touchend', handleTouchEnd);
-  };
-}, []); // empty deps - set up once
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [lastScrollY]);
 
   const termsText = texts['terms.body'] || 'Terms content not found. Make sure DB contains the key "terms.body" for the selected language.';
 

@@ -29,7 +29,10 @@ body, html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Login background --- */
+/* ============================
+   LOGIN PAGE STYLES
+   ============================ */
+
 .login-background{
   min-height: 100vh;
   background-size: cover !important;
@@ -50,7 +53,7 @@ body, html {
   z-index: 1;
 }
 
-/* --- Navigation --- */
+/* Login Navigation */
 .login-nav {
   position: relative;
   z-index: 10;
@@ -60,7 +63,6 @@ body, html {
   padding: 1rem 2rem;
 }
 
-/* Hamburger button for login page */
 .login-nav .hamburger {
   display: none;
   background: none;
@@ -72,111 +74,6 @@ body, html {
   line-height: 1;
 }
 
-/* Hide desktop nav-right on mobile */
-@media (max-width: 768px) {
-  .nav-right {
-    display: none;
-  }
-}
-
-/* Mobile responsive login nav */
-@media (max-width: 768px) {
-  .login-nav {
-    flex-wrap: wrap;
-    position: relative;
-  }
-  
-  .login-nav .hamburger {
-    display: block;
-  }
-  
-  /* Hide logo on mobile when menu is open */
-  .nav-left {
-    display: none !important;
-  }
-  
-  /* Language selector stays in top-right corner - DESKTOP STYLE */
-  .nav-lang {
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-    z-index: 1001;
-    background: transparent;
-    padding: 0;
-  }
-  
-  /* Mobile menu dropdown */
-  .mobile-nav-menu {
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    background: rgba(11, 132, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    margin-top: 0;
-  }
-  
-  .mobile-nav-menu.open {
-    max-height: 400px;
-    padding: 12px 0;
-    margin-top: 16px;
-  }
-  
-  .mobile-nav-menu .nav-link {
-    display: block;
-    width: 100%;
-    padding: 14px 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-  }
-  
-  .mobile-nav-menu .nav-link:last-child {
-    border-bottom: none;
-  }
-}
-
-/* Desktop view - Language inline with navbar in top-right */
-@media (min-width: 769px) {
-  .mobile-nav-menu {
-    display: none;
-  }
-  
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  
-  /* On desktop, nav-lang is part of nav-right */
-  .nav-lang {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: white;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-logo {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .flag-icon {
-    width: 28px;
-    height: 20px;
-  }
-  
-  .lang-label {
-    font-size: 14px;
-  }
-  
-  .nav-lang {
-    right: 1rem;
-  }
-}
-
 .nav-left {
   display: flex;
   align-items: center;
@@ -185,6 +82,12 @@ body, html {
 .nav-logo {
   width: 48px;
   height: 48px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .nav-link {
@@ -227,7 +130,37 @@ body, html {
   opacity: 1 !important;
 }
 
-/* --- Login Content --- */
+/* Mobile menu dropdown */
+.mobile-nav-menu {
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  background: rgba(11, 132, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin-top: 0;
+}
+
+.mobile-nav-menu.open {
+  max-height: 400px;
+  padding: 12px 0;
+  margin-top: 16px;
+}
+
+.mobile-nav-menu .nav-link {
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.mobile-nav-menu .nav-link:last-child {
+  border-bottom: none;
+}
+
+/* Login Content */
 .login-content {
   position: relative;
   z-index: 10;
@@ -351,7 +284,6 @@ body, html {
   color: #111827;
 }
 
-/* Terms Link Container - Centered */
 .terms-link-container {
   text-align: center;
   margin-top: 1rem;
@@ -374,7 +306,7 @@ body, html {
   text-decoration: underline;
 }
 
-/* --- Footer --- */
+/* Login Footer */
 .login-footer {
   position: relative;
   z-index: 10;
@@ -415,28 +347,10 @@ body, html {
   padding-bottom: 1rem;
 }
 
-/* --- Terms page --- */
-.terms-page{ 
-  padding: 16px; 
-  max-width: 600px; 
-  margin: 0 auto; 
-}
+/* ============================
+   TERMS PAGE STYLES
+   ============================ */
 
-.small-top{ 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  margin-bottom: 12px; 
-}
-
-.terms-content{ 
-  background: #fff; 
-  padding: 16px; 
-  border-radius: 10px; 
-  box-shadow: var(--shadow-sm);
-}
-
-/* === Terms Page Styles === */
 .terms-page-wrapper {
   min-height: 100vh;
   height: 100vh;
@@ -459,59 +373,30 @@ body, html {
   z-index: 1;
 }
 
-* === Terms Page Enhanced Styles - REPLACE ENTIRE TERMS SECTION === */
-
-/* Terms Page Wrapper */
-.terms-page-wrapper {
-  min-height: 100vh;
-  height: 100vh;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.terms-page-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Terms Navigation - Blends with scrolling content */
 .terms-nav {
-  position: sticky; /* Changed from relative to sticky */
+  position: sticky;
   top: 0;
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem 2rem;
-  background: transparent; /* Fully transparent */
-  backdrop-filter: none; /* Remove blur */
+  background: transparent;
+  backdrop-filter: none;
   flex-shrink: 0;
   transition: all 0.3s ease;
   margin: 0;
 }
 
-/* Remove hiding animation */
 .terms-nav.hidden {
   opacity: 1;
   transform: none;
 }
 
-/* Hide hamburger on desktop */
 .terms-nav .hamburger {
   display: none;
 }
 
-/* Scrollable Content Container */
 .terms-scroll-container {
   position: relative;
   z-index: 10;
@@ -520,9 +405,10 @@ body, html {
   overflow-x: hidden;
   display: flex;
   justify-content: center;
-  padding: 0; /* Zero padding */
+  padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .terms-scroll-container::-webkit-scrollbar {
@@ -543,30 +429,27 @@ body, html {
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Inner content wrapper - ZERO top spacing */
 .terms-content-inner {
   width: 100%;
   max-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 1rem 8rem 1rem; /* Zero top, huge bottom padding */
+  padding: 0 1rem 8rem 1rem;
   margin: 0;
-  gap: 0; /* Zero gap */
+  gap: 0;
 }
 
-/* Title - ZERO margins */
 .terms-main-title {
   color: white;
   font-size: 3rem;
   font-weight: 700;
   text-align: center;
-  margin: 0 0 1.5rem 0; /* Only bottom margin */
+  margin: 0 0 1.5rem 0;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   padding: 0 1rem;
 }
 
-/* Action Buttons - Enhanced styling with minimal margins */
 .terms-action-button {
   background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
   color: white;
@@ -580,7 +463,7 @@ body, html {
   box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
   text-transform: none;
   letter-spacing: 0.3px;
-  margin: 0 0 1.5rem 0; /* Only bottom margin */
+  margin: 1.5rem 0 1.5rem 0;
 }
 
 .terms-action-button:hover {
@@ -595,10 +478,9 @@ body, html {
 }
 
 .terms-bottom-button {
-  margin: 2rem 0 0 0; /* Top margin only */
+  margin: 2rem 0 0 0;
 }
 
-/* Content Box - ZERO margins */
 .terms-content-box {
   width: 100%;
   max-width: 820px;
@@ -608,10 +490,9 @@ body, html {
   padding: 3rem 3rem;
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
-  margin: 0; /* Zero margin */
+  margin: 0;
 }
 
-/* Terms text display */
 .terms-text-display {
   color: #374151;
   font-size: 1.05rem;
@@ -633,179 +514,35 @@ body, html {
   margin-bottom: 0;
 }
 
-/* Mobile language selector for Terms page */
 .terms-mobile-lang {
   display: none;
 }
 
-/* === MOBILE RESPONSIVE === */
-@media (max-width: 768px) {
-  /* Hide desktop nav-right on Terms page */
-  .terms-nav .nav-right {
-    display: none;
-  }
-  
-  /* Show hamburger on mobile */
-  .terms-nav .hamburger {
-    display: block;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    padding: 8px;
-    line-height: 1;
-  }
-  
-  /* Hide logo on mobile */
-  .terms-nav .nav-left {
-    display: none !important;
-  }
-  
-  /* Terms page mobile navigation */
-  .terms-nav {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    background: transparent;
-    padding: 1rem 1.5rem;
-    position: sticky;
-    top: 0;
-  }
-  
-  /* Mobile menu dropdown for Terms */
-  .terms-nav .mobile-nav-menu {
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    background: rgba(11, 132, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    margin: 0;
-  }
-  
-  .terms-nav .mobile-nav-menu.open {
-    max-height: 400px;
-    padding: 12px 0;
-    margin-top: 12px;
-  }
-  
-  .terms-nav .mobile-nav-menu .nav-link {
-    display: block;
-    width: 100%;
-    padding: 14px 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-    margin: 0;
-  }
-  
-  .terms-nav .mobile-nav-menu .nav-link:last-child {
-    border-bottom: none;
-  }
-  
-  /* Mobile language selector - part of sticky nav */
-  .terms-mobile-lang {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1001;
-    background: rgba(11, 132, 255, 0.9);
-    padding: 8px 14px;
-    border-radius: 25px;
-    backdrop-filter: blur(10px);
-    color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .terms-mobile-lang .lang-label {
-    font-size: 13px;
-    font-weight: 500;
-  }
-  
-  .terms-mobile-lang .flag-icon {
-    width: 28px;
-    height: 20px;
-  }
-  
-  .terms-content-inner {
-    padding: 0 1rem 6rem 1rem;
-  }
-  
-  .terms-main-title {
-    font-size: 2.5rem;
-    margin: 0 0 1.2rem 0;
-  }
-  
-  .terms-action-button {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
-    margin: 0 0 1.2rem 0;
-  }
-  
-  .terms-bottom-button {
-    margin: 1.5rem 0 0 0;
-  }
+/* Old terms page styles (legacy) */
+.terms-page{ 
+  padding: 16px; 
+  max-width: 600px; 
+  margin: 0 auto; 
 }
 
-@media (max-width: 480px) {
-  .terms-nav {
-    padding: 0.875rem 1rem;
-  }
-  
-  .terms-content-box {
-    padding: 2rem 1.5rem;
-    border-radius: 16px;
-  }
-
-  .terms-text-display {
-    font-size: 0.95rem;
-  }
-
-  .terms-text-display p {
-    max-width: 100%;
-    margin-bottom: 1.2rem;
-  }
-  
-  .terms-main-title {
-    font-size: 2.2rem;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
-    margin: 0 0 1rem 0;
-  }
-  
-  .terms-action-button {
-    padding: 0.95rem 2rem;
-    font-size: 0.95rem;
-    margin: 0 0 1rem 0;
-  }
-  
-  .terms-bottom-button {
-    margin: 1.2rem 0 0 0;
-  }
-  
-  .terms-content-inner {
-    padding: 0 0.75rem 5rem 0.75rem;
-  }
-  
-  .terms-mobile-lang {
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 6px 12px;
-  }
-  
-  .terms-mobile-lang .lang-label {
-    font-size: 12px;
-  }
-  
-  .terms-mobile-lang .flag-icon {
-    width: 26px;
-    height: 18px;
-  }
+.small-top{ 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 12px; 
 }
 
-/* === PRICELIST LAYOUT === */
+.terms-content{ 
+  background: #fff; 
+  padding: 16px; 
+  border-radius: 10px; 
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================
+   PRICELIST LAYOUT
+   ============================ */
+
 .pricelist-root{ 
   padding: 0;
   max-width: 100%;
@@ -815,7 +552,6 @@ body, html {
   position: relative;
 }
 
-/* === DESKTOP SIDEBAR === */
 .sidebar-overlay {
   position: fixed;
   top: 0;
@@ -933,7 +669,6 @@ body, html {
   text-align: center;
 }
 
-/* === MOBILE HEADER (< 768px) === */
 .mobile-header {
   display: none;
   background: var(--blue);
@@ -983,7 +718,6 @@ body, html {
   transform: scale(1.1);
 }
 
-/* Mobile Menu Dropdown */
 .mobile-menu {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
@@ -1010,7 +744,6 @@ body, html {
   background: rgba(11, 132, 255, 0.1);
 }
 
-/* Search Boxes */
 .search-boxes {
   display: flex;
   flex-direction: column;
@@ -1049,7 +782,6 @@ body, html {
   pointer-events: none;
 }
 
-/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 12px;
@@ -1093,7 +825,6 @@ body, html {
   font-size: 24px;
 }
 
-/* === TABLET HEADER (768px - 1024px) === */
 .tablet-header {
   display: none;
   background: white;
@@ -1121,7 +852,6 @@ body, html {
   gap: 12px;
 }
 
-/* === DESKTOP HEADER (> 1024px) === */
 .desktop-header { 
   display: none;
   background: white;
@@ -1210,7 +940,6 @@ body, html {
   background: #0a6fd9;
 }
 
-/* === TABLE LAYOUT === */
 .pl-table{ 
   padding: 24px;
   max-width: 1400px;
@@ -1230,7 +959,6 @@ body, html {
   border-bottom: 2px solid #f3f4f6;
 }
 
-/* Tablet column labels */
 .tablet-columns {
   display: none;
   grid-template-columns: 120px 1fr 120px 60px;
@@ -1244,7 +972,6 @@ body, html {
   margin-bottom: 12px;
 }
 
-/* Mobile column labels */
 .mobile-columns {
   display: none;
   grid-template-columns: 1fr 100px 50px;
@@ -1391,7 +1118,9 @@ body, html {
   line-height: 1.6;
 }
 
-/* === RESPONSIVE BREAKPOINTS === */
+/* ============================
+   RESPONSIVE BREAKPOINTS
+   ============================ */
 
 /* Large Desktop (> 1400px) */
 @media (min-width: 1400px) {
@@ -1404,7 +1133,7 @@ body, html {
   }
 }
 
-/* Desktop (1025px - 1400px) */
+/* Desktop (1025px+) */
 @media (min-width: 1025px) {
   .desktop-header {
     display: flex;
@@ -1412,6 +1141,41 @@ body, html {
   
   .pl-headers {
     display: grid;
+  }
+}
+
+/* Desktop (769px+) - LOGIN & TERMS */
+@media (min-width: 769px) {
+  .mobile-nav-menu {
+    display: none;
+  }
+  
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .nav-lang {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+  }
+  
+  /* Login page - hide mobile language button */
+  .login-nav > .nav-lang,
+  .login-mobile-lang {
+    display: none !important;
+  }
+  
+  .login-nav .nav-left .nav-lang {
+    display: none !important;
+  }
+  
+  /* Terms page - hide mobile language button */
+  .terms-mobile-lang {
+    display: none !important;
   }
 }
 
@@ -1435,7 +1199,6 @@ body, html {
     padding: 14px 16px;
   }
   
-  /* Hide columns: in_price, unit, in_stock */
   .pl-row > :nth-child(3),
   .pl-row > :nth-child(5),
   .pl-row > :nth-child(6) {
@@ -1463,7 +1226,6 @@ body, html {
     padding: 12px 14px;
   }
   
-  /* Hide columns: in_price, unit, in_stock */
   .pl-row > :nth-child(3),
   .pl-row > :nth-child(5),
   .pl-row > :nth-child(6) {
@@ -1471,8 +1233,191 @@ body, html {
   }
 }
 
-/* Mobile (< 481px) */
+/* Mobile & Tablet (≤ 768px) - LOGIN & TERMS */
+@media (max-width: 768px) {
+  /* LOGIN PAGE */
+  .login-nav {
+    flex-wrap: wrap;
+    position: relative;
+    padding: 1rem 1.5rem;
+  }
+  
+  .login-nav .hamburger {
+    display: block;
+    margin-right: auto;
+    z-index: 101;
+  }
+  
+  .login-nav .nav-right {
+    display: none !important;
+  }
+  
+  .login-nav .nav-left {
+    display: contents !important;
+  }
+  
+  .login-nav .nav-logo {
+    display: none !important;
+  }
+  
+  .login-mobile-lang,
+  .login-nav > .nav-lang,
+  .login-nav .nav-left .nav-lang {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1.5rem !important;
+    left: auto !important;
+    background: transparent !important;
+    z-index: 200 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+  }
+  
+  .login-nav .flag-icon {
+    width: 28px !important;
+    height: 20px !important;
+  }
+  
+  .nav-right .nav-link:nth-child(3),
+  .nav-right .nav-link:nth-child(4) {
+    display: none;
+  }
+  
+  .login-card {
+    padding: 2rem;
+  }
+  
+  .footer-links .footer-link:nth-child(2) {
+    display: none;
+  }
+  
+  .login-footer {
+    padding: 1rem 1.5rem;
+  }
+  
+  /* TERMS PAGE */
+  .terms-page-wrapper {
+    background-attachment: scroll !important;
+  }
+  
+  .terms-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background: transparent;
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+  }
+  
+  .terms-nav .nav-right {
+    display: none;
+  }
+  
+  .terms-nav .hamburger {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+    line-height: 1;
+  }
+  
+  .terms-nav .nav-left {
+    display: none !important;
+  }
+  
+  .terms-nav .mobile-nav-menu {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: rgba(11, 132, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    margin: 0;
+  }
+  
+  .terms-nav .mobile-nav-menu.open {
+    max-height: 400px;
+    padding: 12px 0;
+    margin-top: 12px;
+  }
+  
+  .terms-nav .mobile-nav-menu .nav-link {
+    display: block;
+    width: 100%;
+    padding: 14px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+    margin: 0;
+  }
+  
+  .terms-nav .mobile-nav-menu .nav-link:last-child {
+    border-bottom: none;
+  }
+  
+  .terms-mobile-lang {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 101;
+    background: none;
+    padding: 6px 12px;
+    color: white;
+  }
+  
+  .terms-mobile-lang .lang-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  
+  .terms-mobile-lang .flag-icon {
+    width: 28px;
+    height: 20px;
+  }
+  
+  .terms-content-inner {
+    padding: 0 1rem 6rem 1rem;
+  }
+  
+  .terms-main-title {
+    font-size: 2.5rem;
+    margin: 0 0 1.2rem 0;
+  }
+  
+  .terms-action-button {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    margin: 1.2rem 0 1.2rem 0;
+  }
+  
+  .terms-bottom-button {
+    margin: 1.5rem 0 0 0;
+  }
+  
+  .terms-content-box {
+    padding: 1.75rem;
+  }
+  
+  .terms-text-display {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile (≤ 480px) */
 @media (max-width: 480px) {
+  /* PRICELIST */
   .mobile-header {
     display: block;
     padding: 12px;
@@ -1482,7 +1427,6 @@ body, html {
     display: grid;
   }
   
-  /* Hide desktop sidebar on mobile */
   .desktop-sidebar {
     display: none;
   }
@@ -1505,7 +1449,6 @@ body, html {
     padding: 12px;
   }
   
-  /* Show only: product_service, price, actions */
   .pl-row > :nth-child(1),
   .pl-row > :nth-child(3),
   .pl-row > :nth-child(4),
@@ -1536,58 +1479,8 @@ body, html {
   .action-btn {
     padding: 12px;
   }
-}
-
-/* Login responsive adjustments */
-@media (max-width: 768px) {
-  .nav-right .nav-link:nth-child(3),
-  .nav-right .nav-link:nth-child(4) {
-    display: none;
-  }
   
-  .login-card {
-    padding: 2rem;
-  }
-  
-  .footer-links .footer-link:nth-child(2) {
-    display: none;
-  }
-  
-  .login-nav, .login-footer {
-    padding: 1rem 1.5rem;
-  }
-  
-  .terms-page-title {
-    font-size: 2rem;
-  }
-  
-  .terms-text-box {
-    padding: 1.5rem;
-  }
-  
-  .terms-main-title {
-    font-size: 2.25rem;
-  }
-  
-  .terms-content-box {
-    padding: 1.75rem;
-  }
-  
-  .terms-text-display {
-    font-size: 0.9rem;
-  }
-  
-  .terms-action-button {
-    padding: 0.875rem 2.25rem;
-    font-size: 1rem;
-  }
-  
-  .terms-nav {
-    padding: 0.875rem 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
+  /* LOGIN PAGE */
   .nav-right .nav-link {
     display: none;
   }
@@ -1609,22 +1502,81 @@ body, html {
     gap: 1rem;
   }
   
-  .terms-page-content {
-    padding: 1rem;
+  .login-nav {
+    padding: 1rem 1rem;
   }
   
-  .terms-page-title {
-    font-size: 1.75rem;
+  .login-nav > .nav-lang,
+  .login-nav .nav-left .nav-lang {
+    right: 1rem !important;
   }
   
-  .terms-back-button {
-    padding: 0.75rem 2rem;
+  /* TERMS PAGE */
+  .terms-nav {
+    padding: 0.875rem 1rem;
+  }
+  
+  .terms-content-box {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .terms-text-display {
     font-size: 0.95rem;
-    margin-bottom: 50px;
+  }
+
+  .terms-text-display p {
+    max-width: 100%;
+    margin-bottom: 1.2rem;
   }
   
-  .terms-text-box {
-    padding: 1rem;
+  .terms-main-title {
+    font-size: 2.2rem;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    margin: 0 0 1rem 0;
+  }
+  
+  .terms-action-button {
+    padding: 0.95rem 2rem;
+    font-size: 0.95rem;
+    margin: 1rem 0 1rem 0;
+  }
+  
+  .terms-bottom-button {
+    margin: 1.2rem 0 0 0;
+  }
+  
+  .terms-content-inner {
+    padding: 0 0.75rem 5rem 0.75rem;
+  }
+  
+  .terms-mobile-lang {
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 6px 12px;
+  }
+  
+  .terms-mobile-lang .lang-label {
+    font-size: 12px;
+  }
+  
+  .terms-mobile-lang .flag-icon {
+    width: 26px;
+    height: 18px;
+  }
+  
+  .nav-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .flag-icon {
+    width: 28px;
+    height: 20px;
+  }
+  
+  .lang-label {
+    font-size: 14px;
   }
 }
 
@@ -1644,244 +1596,5 @@ body, html {
   
   .pl-row {
     page-break-inside: avoid;
-  }
-}
-/* ============================
-   TERMS PAGE & NAV/LANG OVERRIDES
-   (Final Fix for Mobile Button & Text Alignment)
-   ============================ */
-
-/* 1. Page Layout & Scroll Fixes */
-.terms-page-wrapper {
-min-height: 100vh;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;                 /* hide body-level overflow */
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat;
-  /* DO NOT use background-attachment: fixed on mobile — handled below */
-  -webkit-overflow-scrolling: auto;
-  overscroll-behavior: none;
-}
-
-.terms-scroll-container {
-  position: relative;
-  z-index: 10;
-  flex: 1 1 auto;
-  overflow-y: auto;                 /* inner scrolling container */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;     /* stop scroll chaining to the body */
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-}
-
-/* 2. Navigation Bar - Mobile Button Fix */
-.terms-nav,
-.terms-page .terms-nav {
-  position: relative !important;
-  display: flex !important;
-  /* Ensure elements push to edges */
-  justify-content: space-between !important; 
-  align-items: flex-start !important;
-  width: 100% !important;
-  padding: 1rem 1.5rem !important; /* Matches the positioning coordinates below */
-  background: transparent !important;
-  z-index: 50 !important;
-  margin: 0 !important;
-}
-
-/* 3. Content Box & Text Alignment Fix */
-.terms-content-inner {
-  width: 100%;
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 1rem 4rem 1rem;
-  margin: 0;
-  gap: 0;
-  min-height: 100%;
-  box-sizing: border-box;
-}
-
-.terms-content-box {
-  width: 100%;
-  max-width: 820px;
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-/* TEXT FIX: Left Aligned (Standard) instead of Center (Jagged) */
-.terms-text-display,
-.terms-text-display p {
-  color: #374151 !important;
-  font-size: 1rem !important;
-  line-height: 1.5 !important;
-  
-  /* Changed to center to look "proper" like a document */
-  text-align: center !important; 
-  
-  /* Minimal spacing as requested */
-  margin-top: 0 !important;
-  margin-bottom: 0.5rem !important; 
-  padding: 0 !important;
-}
-
-/* 4. Language Button Logic (Mobile Positioning Fix) */
-
-/* Desktop: Show nav-lang, Hide mobile-lang */
-@media (min-width: 769px) {
-  .terms-mobile-lang { display: none !important; }
-  .nav-lang { display: flex !important; }
-}
-
-/* Mobile: Show mobile-lang, Hide nav-lang */
-@media (max-width: 768px) {
-  .nav-right, .nav-lang { display: none !important; }
-
-  .terms-page-wrapper {
-    background-attachment: scroll !important;
-  }
-
-  html, body {
-    height: 100%;
-    /* Do not set overflow hidden globally in this file; JS will avoid body bounce.
-       Keep this comment so integrator knows why not to set it here. */
-  }
-
-  /* STRICT POSITIONING for Mobile Button */
-  .terms-mobile-lang,
-  .terms-page .terms-mobile-lang {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    background: none !important;
-    padding: 6px 12px !important;
-    color: white !important;
-
-    /* FORCE Position: Absolute to guarantee it sits top-right */
-    position: absolute !important;
-    top: 1rem !important;     /* Aligns with nav padding */
-    right: 1.5rem !important; /* Aligns with nav padding */
-    left: auto !important;
-    margin: 0 !important;
-    z-index: 101 !important;
-  }
-  
-  /* Ensure Hamburger stays left */
-  .terms-nav .hamburger {
-    display: block !important;
-    margin-right: auto !important;
-    position: relative !important;
-    z-index: 101 !important;
-  }
-}
-
-/* 5. Action Buttons */
-.terms-action-button {
-  margin-top: 1.5rem !important;
-  margin-bottom: 2rem !important;
-}
-
-@supports (-webkit-overflow-scrolling: touch) {
-  .terms-scroll-container {
-    -webkit-overflow-scrolling: touch;
-  }
-}
-/* ============================
-   LOGIN PAGE FINAL FIX
-   (Corrected: No Nested Media Queries or Duplicates)
-   ============================ */
-
-/* --- 1. DESKTOP (Screens larger than 768px) --- */
-@media (min-width: 769px) {
-  /* Show the main nav container */
-  .login-nav .nav-right {
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  /* HIDE any loose/mobile-specific language buttons */
-  .login-nav > .nav-lang,
-  .login-mobile-lang {
-    display: none !important;
-  }
-
-  /* HIDE any language button trapped inside the Left/Logo area */
-  .login-nav .nav-left .nav-lang {
-    display: none !important;
-  }
-}
-
-/* --- 2. MOBILE (Screens 768px or smaller) --- */
-@media (max-width: 768px) {
-  /* A. PREPARATION */
-  .login-nav {
-    position: relative !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    padding: 1rem 1.5rem !important;
-  }
-
-  /* B. HAMBURGER - FORCE LEFT */
-  .login-nav .hamburger {
-    display: block !important;
-    margin-right: auto !important;
-    z-index: 101 !important;
-  }
-
-  /* C. HIDE DESKTOP ELEMENTS */
-  .login-nav .nav-right {
-    display: none !important;
-  }
-
-  /* D. REVEAL & POSITION BUTTON (Even if trapped in nav-left) */
-
-  /* 1. Unhide the .nav-left container so we can access children */
-  .login-nav .nav-left {
-    display: contents !important;
-  }
-
-  /* 2. Hide the Logo specifically */
-  .login-nav .nav-logo {
-    display: none !important;
-  }
-
-  /* 3. STRICT POSITIONING for Language Button (Targeting all variants) */
-  .login-mobile-lang,
-  .login-nav > .nav-lang,
-  .login-nav .nav-left .nav-lang {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-
-    /* FORCE Position: Absolute Top-Right */
-    position: absolute !important;
-    top: 1rem !important;
-    right: 1.5rem !important;
-    left: auto !important;
-
-    /* Styling */
-    background: transparent !important;
-    z-index: 200 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: auto !important;
-  }
-
-  /* Fix Flag Sizing */
-  .login-nav .flag-icon {
-    width: 28px !important;
-    height: 20px !important;
   }
 }
