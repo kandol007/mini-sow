@@ -184,3 +184,5 @@ export default function Terms({ onBack }) {
     </div>
   );
 }
+
+{/*random snippet for comparison*/}
