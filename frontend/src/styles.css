@@ -1656,6 +1656,8 @@ body, html {
   min-height: 100vh !important;
   height: auto !important;
   overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .terms-scroll-container,
@@ -1665,6 +1667,7 @@ body, html {
   flex: 0 0 auto !important;
   padding: 0 !important;
   margin: 0 !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 /* 2. Navigation Bar - Mobile Button Fix */
