@@ -1653,21 +1653,31 @@ body, html {
 
 /* 1. Page Layout & Scroll Fixes */
 .terms-page-wrapper {
-  min-height: 100vh !important;
-  height: auto !important;
-  overflow: visible !important;
-  display: flex !important;
-  flex-direction: column !important;
+min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;                 /* hide body-level overflow */
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat;
+  /* DO NOT use background-attachment: fixed on mobile — handled below */
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
 }
 
-.terms-scroll-container,
-.terms-page .terms-scroll-container {
-  overflow-y: visible !important;
-  height: auto !important;
-  flex: 0 0 auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  -webkit-overflow-scrolling: touch !important;
+.terms-scroll-container {
+  position: relative;
+  z-index: 10;
+  flex: 1 1 auto;
+  overflow-y: auto;                 /* inner scrolling container */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;     /* stop scroll chaining to the body */
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
 /* 2. Navigation Bar - Mobile Button Fix */
@@ -1686,25 +1696,27 @@ body, html {
 }
 
 /* 3. Content Box & Text Alignment Fix */
-.terms-content-inner,
-.terms-page .terms-content-inner {
-  padding: 0 1rem 4rem 1rem !important;
-  margin: 0 auto !important;
-  width: 100% !important;
-  max-width: 900px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important; 
+.terms-content-inner {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem 4rem 1rem;
+  margin: 0;
+  gap: 0;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
-.terms-content-box,
-.terms-page .terms-content-box {
-  padding: 1.5rem !important;
-  margin: 0 auto !important;
-  width: 100% !important;
-  background: rgba(255,255,255,0.98) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08) !important;
+.terms-content-box {
+  width: 100%;
+  max-width: 820px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 /* TEXT FIX: Left Aligned (Standard) instead of Center (Jagged) */
@@ -1714,7 +1726,7 @@ body, html {
   font-size: 1rem !important;
   line-height: 1.5 !important;
   
-  /* Changed to LEFT to look "proper" like a document */
+  /* Changed to center to look "proper" like a document */
   text-align: center !important; 
   
   /* Minimal spacing as requested */
@@ -1734,6 +1746,16 @@ body, html {
 /* Mobile: Show mobile-lang, Hide nav-lang */
 @media (max-width: 768px) {
   .nav-right, .nav-lang { display: none !important; }
+
+  .terms-page-wrapper {
+    background-attachment: scroll !important;
+  }
+
+  html, body {
+    height: 100%;
+    /* Do not set overflow hidden globally in this file; JS will avoid body bounce.
+       Keep this comment so integrator knows why not to set it here. */
+  }
 
   /* STRICT POSITIONING for Mobile Button */
   .terms-mobile-lang,
@@ -1767,6 +1789,12 @@ body, html {
 .terms-action-button {
   margin-top: 1.5rem !important;
   margin-bottom: 2rem !important;
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .terms-scroll-container {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 /* ============================
    LOGIN PAGE FINAL FIX
