@@ -353,13 +353,6 @@ body, html {
 
 .terms-page-wrapper {
   min-height: 100vh;
-  height: auto;                    /* allow page to grow and scroll */
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat;
-  background-attachment: scroll !important;
-  display: flex;
-  flex-direction: column;
   position: relative;
   overflow-y: visible;             /* let document scroll normally */
 }
