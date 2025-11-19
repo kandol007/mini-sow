@@ -353,15 +353,15 @@ body, html {
 
 .terms-page-wrapper {
   min-height: 100vh;
-  height: 100vh;
+  height: auto;                    /* allow page to grow and scroll */
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll !important;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
+  overflow-y: visible;             /* let document scroll normally */
 }
 
 .terms-page-wrapper::before {
@@ -374,8 +374,7 @@ body, html {
 }
 
 .terms-nav {
-  position: sticky;
-  top: 0;
+  position: static; /* participate in normal flow so it scrolls away with page */
   z-index: 100;
   display: flex;
   align-items: center;
@@ -435,9 +434,11 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 1rem 8rem 1rem;
+  /* small top padding to keep content fully visible below nav and keep text centered */
+  padding: 1rem 1rem 8rem 1rem;
   margin: 0;
   gap: 0;
+  text-align: center; /* ensure content center aligned */
 }
 
 .terms-main-title {
@@ -478,7 +479,7 @@ body, html {
 }
 
 .terms-bottom-button {
-  margin: 2rem 0 0 0;
+  margin: 2rem 0 6rem 0; /* increased bottom margin */
 }
 
 .terms-content-box {
@@ -504,7 +505,7 @@ body, html {
 }
 
 .terms-text-display p {
-  margin: 0 auto 1.5rem auto;
+  margin: 0;
   max-width: 720px;
   text-align: center;
   padding: 0;
@@ -1240,12 +1241,15 @@ body, html {
     flex-wrap: wrap;
     position: relative;
     padding: 1rem 1.5rem;
+    align-items: flex-start;
   }
   
   .login-nav .hamburger {
     display: block;
-    margin-right: auto;
-    z-index: 101;
+    position: absolute !important;
+    left: 1.5rem !important;
+    top: 1rem !important;
+    z-index: 9999 !important;
   }
   
   .login-nav .nav-right {
@@ -1273,10 +1277,11 @@ body, html {
     right: 1.5rem !important;
     left: auto !important;
     background: transparent !important;
-    z-index: 200 !important;
+    z-index: 9999 !important; /* ensure it sits above hamburger */
     padding: 0 !important;
     margin: 0 !important;
     width: auto !important;
+    order: 2;
   }
   
   .login-nav .flag-icon {
@@ -1311,8 +1316,8 @@ body, html {
     justify-content: flex-start;
     background: transparent;
     padding: 1rem 1.5rem;
-    position: sticky;
-    top: 0;
+    position: relative;
+    align-items: flex-start;
   }
   
   .terms-nav .nav-right {
@@ -1328,6 +1333,7 @@ body, html {
     cursor: pointer;
     padding: 8px;
     line-height: 1;
+    order: 1;
   }
   
   .terms-nav .nav-left {
@@ -1375,6 +1381,7 @@ body, html {
     background: none;
     padding: 6px 12px;
     color: white;
+    order: 2;
   }
   
   .terms-mobile-lang .lang-label {
@@ -1388,7 +1395,8 @@ body, html {
   }
   
   .terms-content-inner {
-    padding: 0 1rem 6rem 1rem;
+    padding: 1rem 1rem 6rem 1rem;
+    text-align: center;
   }
   
   .terms-main-title {
@@ -1403,7 +1411,7 @@ body, html {
   }
   
   .terms-bottom-button {
-    margin: 1.5rem 0 0 0;
+    margin: 1.5rem 0 3rem 0;
   }
   
   .terms-content-box {
@@ -1543,7 +1551,7 @@ body, html {
   }
   
   .terms-bottom-button {
-    margin: 1.2rem 0 0 0;
+    margin: 1.2rem 0 3rem 0;
   }
   
   .terms-content-inner {

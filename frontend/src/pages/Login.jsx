@@ -61,7 +61,26 @@ export default function Login({ onLogin, onShowTerms }) {
         >
           ☰
         </button>
-
+         {/* Mobile language button: visible on small screens (CSS targets .login-mobile-lang) */}
+<div className="login-mobile-lang" style={{ display: 'none' }}>
+  <span className="lang-label">{texts['nav.language'] || 'English'}</span>
+  <div className="lang-flags">
+    <img
+      src={FLAG_GB}
+      alt="English"
+      onClick={() => setLang('en')}
+      className="flag-icon"
+      style={{ opacity: lang === 'en' ? 1 : 0.5, cursor: 'pointer' }}
+    />
+    <img
+      src={FLAG_SE}
+      alt="Svenska"
+      onClick={() => setLang('se')}
+      className="flag-icon"
+      style={{ opacity: lang === 'se' ? 1 : 0.5, cursor: 'pointer' }}
+    />
+  </div>
+</div>
         {/* Logo - hidden on mobile when menu is open */}
         <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
           <img src={LOGO} alt="logo" className="nav-logo" />
