@@ -9,6 +9,9 @@ export default function Terms({ onBack }) {
   const [lang, setLang] = useState('en');
   const [texts, setTexts] = useState({});
   const [loading, setLoading] = useState(true);
+  const [navHidden, setNavHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -27,22 +30,63 @@ export default function Terms({ onBack }) {
       .finally(() => setLoading(false));
   }, [lang]);
 
+  useEffect(() => {
+    const scrollContainer = document.querySelector('.terms-scroll-container');
+    
+    const handleScroll = () => {
+      if (!scrollContainer) return;
+      const currentScrollY = scrollContainer.scrollTop;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down & past 80px
+        setNavHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setNavHidden(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [lastScrollY]);
+
   const termsText = texts['terms.body'] || 'Terms content not found. Make sure DB contains the key "terms.body" for the selected language.';
 
   return (
     <div className="terms-page-wrapper" style={{ backgroundImage: `url(${WALLPAPER})` }}>
       {/* Top Navigation */}
-      <nav className="terms-nav">
-        <div className="nav-left">
+      <nav className={`terms-nav ${navHidden ? 'hidden' : ''}`}>
+        {/* Hamburger button – visible on mobile */}
+        <button 
+          className="hamburger" 
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+
+        {/* Logo - hidden on mobile when menu is open */}
+        <div className="nav-left" style={{ visibility: menuOpen ? 'hidden' : 'visible' }}>
           <img src={LOGO} alt="logo" className="nav-logo" />
         </div>
         
+        {/* Desktop Navigation Links */}
         <div className="nav-right">
           <a href="#" className="nav-link">{texts['nav.home'] || 'Home'}</a>
           <a href="#" className="nav-link">{texts['nav.order'] || 'Order'}</a>
           <a href="#" className="nav-link">{texts['nav.customers'] || 'Our Customers'}</a>
           <a href="#" className="nav-link">{texts['nav.about'] || 'About us'}</a>
           <a href="#" className="nav-link">{texts['nav.contact'] || 'Contact Us'}</a>
+          
+          {/* Language Selector - part of nav-right on desktop */}
           <div className="nav-lang">
             <span className="lang-label">{texts['nav.language'] || 'English'}</span>
             <div className="lang-flags">
@@ -63,7 +107,47 @@ export default function Terms({ onBack }) {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Dropdown (accordion style) */}
+        <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.home'] || 'Home'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.order'] || 'Order'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.customers'] || 'Our Customers'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.about'] || 'About us'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.contact'] || 'Contact Us'}
+          </a>
+        </div>
       </nav>
+
+      {/* Language Selector - Fixed in top-right on mobile */}
+      <div className="terms-mobile-lang">
+        <span className="lang-label">{lang === 'en' ? 'English' : 'Svenska'}</span>
+        <div className="lang-flags">
+          <img 
+            src={FLAG_GB} 
+            alt="English" 
+            onClick={() => setLang('en')} 
+            className="flag-icon"
+            style={{ opacity: lang === 'en' ? 1 : 0.5, cursor: 'pointer' }}
+          />
+          <img 
+            src={FLAG_SE} 
+            alt="Svenska" 
+            onClick={() => setLang('se')} 
+            className="flag-icon"
+            style={{ opacity: lang === 'se' ? 1 : 0.5, cursor: 'pointer' }}
+          />
+        </div>
+      </div>
 
       {/* Scrollable Content Area */}
       <div className="terms-scroll-container">
@@ -84,8 +168,8 @@ export default function Terms({ onBack }) {
               </div>
             ) : (
               <div className="terms-text-display">
-                {termsText.split('\n').map((paragraph, idx) => (
-                  paragraph.trim() ? <p key={idx} style={{ marginBottom: '1rem' }}>{paragraph}</p> : <br key={idx} />
+                {termsText.split('\n').filter(p => p.trim()).map((paragraph, idx) => (
+                  <p key={idx}>{paragraph}</p>
                 ))}
               </div>
             )}

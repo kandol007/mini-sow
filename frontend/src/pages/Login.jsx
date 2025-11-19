@@ -11,6 +11,7 @@ export default function Login({ onLogin, onShowTerms }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Fetch texts from database
   useEffect(() => {
@@ -53,18 +54,40 @@ export default function Login({ onLogin, onShowTerms }) {
     <div className="login-background" style={{ backgroundImage: `url(${WALLPAPER})` }}>
       {/* Top Navigation */}
       <nav className="login-nav">
-        <div className="nav-left">
+        {/* Hamburger button – visible on mobile, on the LEFT */}
+        <button 
+          className="hamburger" 
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+
+        {/* Logo - hidden on mobile when menu is open */}
+        <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
           <img src={LOGO} alt="logo" className="nav-logo" />
         </div>
-        
+
+        {/* Desktop Navigation Links */}
         <div className="nav-right">
-          <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
-          <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
-          <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
-          <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
-          <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
+          <a href="#" className="nav-link">
+            {texts['nav.home'] || 'Hem'}
+          </a>
+          <a href="#" className="nav-link">
+            {texts['nav.order'] || 'Beställ'}
+          </a>
+          <a href="#" className="nav-link">
+            {texts['nav.customers'] || 'Våra Kunder'}
+          </a>
+          <a href="#" className="nav-link">
+            {texts['nav.about'] || 'Om oss'}
+          </a>
+          <a href="#" className="nav-link">
+            {texts['nav.contact'] || 'Kontakta oss'}
+          </a>
+
+          {/* Language Selector - part of nav-right on desktop */}
           <div className="nav-lang">
-            <span className="lang-label">{texts['nav.language'] || 'Svenska'}</span>
+            <span className="lang-label">{texts['nav.language'] || 'English'}</span>
             <div className="lang-flags">
               <img 
                 src={FLAG_GB} 
@@ -82,6 +105,25 @@ export default function Login({ onLogin, onShowTerms }) {
               />
             </div>
           </div>
+        </div>
+
+        {/* Mobile Menu Dropdown (accordion style) */}
+        <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.home'] || 'Hem'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.order'] || 'Beställ'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.customers'] || 'Våra Kunder'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.about'] || 'Om oss'}
+          </a>
+          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
+            {texts['nav.contact'] || 'Kontakta oss'}
+          </a>
         </div>
       </nav>
 
@@ -129,11 +171,15 @@ export default function Login({ onLogin, onShowTerms }) {
             </button>
 
             <div className="login-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); }}>{texts['login.register'] || 'Registrera dig'}</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); onShowTerms && onShowTerms(); }}>{texts['login.forgot'] || 'Glömt lösenord?'}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); }}>
+                {texts['login.register'] || 'Registrera dig'}
+              </a>
+              <a href="#" onClick={(e) => { e.preventDefault(); onShowTerms && onShowTerms(); }}>
+                {texts['login.forgot'] || 'Glömt lösenord?'}
+              </a>
             </div>
 
-            {/* Terms Link */}
+            {/* Terms Link - Centered */}
             <div className="terms-link-container">
               <a href="#" onClick={(e) => { e.preventDefault(); onShowTerms && onShowTerms(); }} className="terms-link">
                 {texts['terms.title'] || 'Villkor'}
