@@ -3,7 +3,7 @@
 -- Insert translations (English + Swedish) with proper UTF-8 encoding
 INSERT INTO texts (key_name, lang, value) VALUES
 -- Login page texts
-('login.title', 'en', 'Sign in'),
+('login.title', 'en', 'Log in'),
 ('login.title', 'se', 'Logga in'),
 ('login.email.label', 'en', 'Enter your email address'),
 ('login.email.label', 'se', 'Skriv in din epost adress'),
@@ -13,7 +13,7 @@ INSERT INTO texts (key_name, lang, value) VALUES
 ('login.password.label', 'se', 'Skriv in ditt lösenord'),
 ('login.password.placeholder', 'en', 'Password'),
 ('login.password.placeholder', 'se', 'Lösenord'),
-('login.button', 'en', 'Sign in'),
+('login.button', 'en', 'Log in'),
 ('login.button', 'se', 'Logga in'),
 ('login.register', 'en', 'Register'),
 ('login.register', 'se', 'Registrera dig'),

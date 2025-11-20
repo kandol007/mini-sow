@@ -12,6 +12,7 @@ export default function Login({ onLogin, onShowTerms }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langDropOpen, setLangDropOpen] = useState(false);
 
   // Fetch texts from database
   useEffect(() => {
@@ -54,97 +55,82 @@ export default function Login({ onLogin, onShowTerms }) {
     <div className="login-background" style={{ backgroundImage: `url(${WALLPAPER})` }}>
       {/* Top Navigation */}
       <nav className="login-nav">
-        {/* Hamburger button – visible on mobile, on the LEFT */}
-        <button 
-          className="hamburger" 
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-         {/* Mobile language button: visible on small screens (CSS targets .login-mobile-lang) */}
-<div className="login-mobile-lang" style={{ display: 'none' }}>
-  <span className="lang-label">{texts['nav.language'] || 'English'}</span>
-  <div className="lang-flags">
-    <img
-      src={FLAG_GB}
-      alt="English"
-      onClick={() => setLang('en')}
-      className="flag-icon"
-      style={{ opacity: lang === 'en' ? 1 : 0.5, cursor: 'pointer' }}
-    />
-    <img
-      src={FLAG_SE}
-      alt="Svenska"
-      onClick={() => setLang('se')}
-      className="flag-icon"
-      style={{ opacity: lang === 'se' ? 1 : 0.5, cursor: 'pointer' }}
-    />
-  </div>
-</div>
-        {/* Logo - hidden on mobile when menu is open */}
-        <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
-          <img src={LOGO} alt="logo" className="nav-logo" />
-        </div>
 
-        {/* Desktop Navigation Links */}
-        <div className="nav-right">
-          <a href="#" className="nav-link">
-            {texts['nav.home'] || 'Hem'}
-          </a>
-          <a href="#" className="nav-link">
-            {texts['nav.order'] || 'Beställ'}
-          </a>
-          <a href="#" className="nav-link">
-            {texts['nav.customers'] || 'Våra Kunder'}
-          </a>
-          <a href="#" className="nav-link">
-            {texts['nav.about'] || 'Om oss'}
-          </a>
-          <a href="#" className="nav-link">
-            {texts['nav.contact'] || 'Kontakta oss'}
-          </a>
+  {/* Hamburger button */}
+  <button 
+    className="hamburger" 
+    onClick={() => setMenuOpen(!menuOpen)}
+  >
+    ☰
+  </button>
 
-          {/* Language Selector - part of nav-right on desktop */}
-          <div className="nav-lang">
-            <span className="lang-label">{texts['nav.language'] || 'English'}</span>
-            <div className="lang-flags">
-              <img 
-                src={FLAG_GB} 
-                alt="English" 
-                onClick={() => setLang('en')} 
-                className="flag-icon"
-                style={{ opacity: lang === 'en' ? 1 : 0.5 }}
-              />
-              <img 
-                src={FLAG_SE} 
-                alt="Svenska" 
-                onClick={() => setLang('se')} 
-                className="flag-icon"
-                style={{ opacity: lang === 'se' ? 1 : 0.5 }}
-              />
-            </div>
+  {/* ONE AND ONLY — Language Selector */}
+  <div className="nav-lang">
+    <div className="lang-drop-container">
+      <div 
+        className={`lang-drop-button ${langDropOpen ? 'open' : ''}`}
+        onClick={() => setLangDropOpen(!langDropOpen)}
+      >
+        <span className="collectionItem">
+          {lang === 'en' ? 'English' : 'Svenska'}
+        </span>
+
+        <img 
+          src={lang === 'en' ? FLAG_GB : FLAG_SE} 
+          alt={lang === 'en' ? 'English' : 'Svenska'}
+          className="icon-flag-nav"
+        />
+
+        <span className="arrow">▼</span>
+      </div>
+
+      <div className={`dropdownList ${langDropOpen ? 'show' : ''}`}>
+        <div className="language-box">
+          <div 
+            className="flag-name"
+            onClick={() => { setLang('se'); setLangDropOpen(false); }}
+          >
+            <span className="collectionItem">Svenska</span>
+            <img src={FLAG_SE} alt="Svenska" className="icon-flag-nav" />
+          </div>
+
+          <div 
+            className="flag-name"
+            onClick={() => { setLang('en'); setLangDropOpen(false); }}
+          >
+            <span className="collectionItem">English</span>
+            <img src={FLAG_GB} alt="English" className="icon-flag-nav" />
           </div>
         </div>
+      </div>
 
-        {/* Mobile Menu Dropdown (accordion style) */}
-        <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
-          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
-            {texts['nav.home'] || 'Hem'}
-          </a>
-          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
-            {texts['nav.order'] || 'Beställ'}
-          </a>
-          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
-            {texts['nav.customers'] || 'Våra Kunder'}
-          </a>
-          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
-            {texts['nav.about'] || 'Om oss'}
-          </a>
-          <a href="#" className="nav-link" onClick={() => setMenuOpen(false)}>
-            {texts['nav.contact'] || 'Kontakta oss'}
-          </a>
-        </div>
-      </nav>
+    </div>
+  </div>
+
+  {/* Logo */}
+  <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
+    <img src={LOGO} alt="logo" className="nav-logo" />
+  </div>
+
+  {/* Desktop nav links */}
+  <div className="nav-right">
+    <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
+    <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
+    <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
+    <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
+    <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
+  </div>
+
+  {/* Mobile Menu */}
+  <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
+    <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
+    <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
+    <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
+    <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
+    <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
+  </div>
+
+</nav>
 
       {/* Login Card - Centered */}
       <div className="login-content">

@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from 'react';
 
-function Input({ value, onChange, onBlur, placeholder }) {
+// Add flag constants
+const FLAG_GB = 'https://flagcdn.com/w40/gb.png';
+const FLAG_SE = 'https://flagcdn.com/w40/se.png';
+
+// Placeholder for user avatar
+const USER_AVATAR = 'https://ui-avatars.com/api/?name=John+Andre&background=0D8ABC&color=fff';
+
+function Input({ value, onChange, onBlur, placeholder, className }) {
   return (
-    <input 
-      className="pill" 
-      value={value || ''} 
-      onChange={e => onChange(e.target.value)} 
+    <input
+      className={`pill-input ${className || ''}`}
+      value={value || ''}
+      onChange={e => onChange(e.target.value)}
       onBlur={onBlur}
       placeholder={placeholder}
     />
   );
 }
 
-export default function Pricelist({ token, onLogout }){
+export default function Pricelist({ token, onLogout }) {
   const [products, setProducts] = useState([]);
   const [searchArticle, setSearchArticle] = useState('');
   const [searchProduct, setSearchProduct] = useState('');
   const [lang, setLang] = useState('en');
-  const [showMenu, setShowMenu] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  useEffect(()=> {
-    fetch('/api/products', { headers: { Authorization: 'Bearer ' + token }})
+  useEffect(() => {
+    fetch('/api/products', { headers: { Authorization: 'Bearer ' + token } })
       .then(r => {
         if (r.status === 401) throw new Error('unauthorized');
         return r.json();
@@ -33,7 +41,7 @@ export default function Pricelist({ token, onLogout }){
       });
   }, [token, onLogout]);
 
-  async function saveProduct(p){
+  async function saveProduct(p) {
     try {
       await fetch(`/api/products/${p.id}`, {
         method: 'PUT',
@@ -45,7 +53,7 @@ export default function Pricelist({ token, onLogout }){
     }
   }
 
-  function changeField(id, field, value){
+  function changeField(id, field, value) {
     setProducts(prev => prev.map(x => x.id === id ? { ...x, [field]: value } : x));
   }
 
@@ -57,7 +65,8 @@ export default function Pricelist({ token, onLogout }){
       in_price: '',
       price: '',
       unit: '',
-      in_stock: ''
+      in_stock: '',
+      description: ''
     };
     setProducts(prev => [newProduct, ...prev]);
   }
@@ -82,253 +91,212 @@ export default function Pricelist({ token, onLogout }){
   });
 
   return (
-    <div className="pricelist-root">
-      {/* Overlay for sidebar */}
-      {showMenu && (
-        <div className="sidebar-overlay" onClick={() => setShowMenu(false)}></div>
-      )}
-
-      {/* Desktop Sidebar Menu */}
-      <aside className={`desktop-sidebar ${showMenu ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <h2>Menu</h2>
-          <button className="close-sidebar" onClick={() => setShowMenu(false)}>✕</button>
-        </div>
-        <nav className="sidebar-nav">
-          <button className="sidebar-item" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">📊</span>
-            Dashboard
+    <div className="app-container">
+      {/* Top Header */}
+      <header className="main-header">
+        <div className="header-left-group">
+          <button className="hamburger-toggle" onClick={() => setShowMenu(!showMenu)}>
+            ☰
           </button>
-          <button className="sidebar-item active" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">💰</span>
-            Price List
-          </button>
-          <button className="sidebar-item" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">📄</span>
-            Invoices
-          </button>
-          <button className="sidebar-item" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">👥</span>
-            Customers
-          </button>
-          <button className="sidebar-item" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">📦</span>
-            Inventory
-          </button>
-          <button className="sidebar-item" onClick={() => setShowMenu(false)}>
-            <span className="sidebar-icon">⚙️</span>
-            Settings
-          </button>
-          <button className="sidebar-item logout" onClick={() => { setShowMenu(false); onLogout(); }}>
-            <span className="sidebar-icon">🚪</span>
-            Logout
-          </button>
-        </nav>
-      </aside>
-
-      {/* Mobile Header */}
-      <header className="mobile-header">
-        <div className="mobile-header-top">
-          <button className="hamburger-btn" onClick={() => setShowMenu(!showMenu)}>☰</button>
-          <div className="lang-toggle-mobile">
-            <span>{lang === 'en' ? 'English' : 'Svenska'}</span>
-            <img 
-              src={`https://flagcdn.com/w40/${lang === 'en' ? 'gb' : 'se'}.png`}
-              alt={lang} 
-              onClick={() => setLang(lang === 'en' ? 'se' : 'en')}
-              className="flag-img"
-            />
-          </div>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        {showMenu && (
-          <div className="mobile-menu">
-            <button onClick={() => { setShowMenu(false); }}>Dashboard</button>
-            <button onClick={() => { setShowMenu(false); }}>Price List</button>
-            <button onClick={() => { setShowMenu(false); }}>Settings</button>
-            <button onClick={() => { setShowMenu(false); onLogout(); }}>Logout</button>
-          </div>
-        )}
-
-        {/* Search Boxes */}
-        <div className="search-boxes">
-          <div className="search-box">
-            <input 
-              type="text" 
-              placeholder="Search Article No ..." 
-              value={searchArticle}
-              onChange={(e) => setSearchArticle(e.target.value)}
-            />
-            <span className="search-icon">🔍</span>
-          </div>
-          <div className="search-box">
-            <input 
-              type="text" 
-              placeholder="Search Product ..." 
-              value={searchProduct}
-              onChange={(e) => setSearchProduct(e.target.value)}
-            />
-            <span className="search-icon">🔍</span>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="action-buttons">
-          <button className="action-btn add-btn" onClick={addNewProduct} title="Add New Product">
-            <span className="icon">➕</span>
-          </button>
-          <button className="action-btn print-btn" onClick={() => window.print()} title="Print">
-            <span className="icon">🖨️</span>
-          </button>
-          <button className="action-btn advanced-btn" title="Advanced Mode">
-            <span className="icon">⚙️</span>
-          </button>
-        </div>
-      </header>
-
-      {/* Tablet Header (medium screens) */}
-      <header className="tablet-header">
-        <div className="tablet-header-left">
-          <button className="hamburger-btn" onClick={() => setShowMenu(!showMenu)}>☰</button>
-          <h3>Price List</h3>
-        </div>
-        <div className="tablet-header-right">
-          <button className="header-btn" onClick={addNewProduct}>+ New</button>
-          <button className="header-btn" onClick={() => window.print()}>Print</button>
-          <button className="header-btn" onClick={onLogout}>Logout</button>
-        </div>
-        
-        {/* Mobile Menu Dropdown for Tablet */}
-        {showMenu && (
-          <div className="mobile-menu" style={{ position: 'absolute', top: '70px', left: '24px', right: '24px', zIndex: 100 }}>
-            <button onClick={() => { setShowMenu(false); }}>Dashboard</button>
-            <button onClick={() => { setShowMenu(false); }}>Price List</button>
-            <button onClick={() => { setShowMenu(false); }}>Settings</button>
-            <button onClick={() => { setShowMenu(false); onLogout(); }}>Logout</button>
-          </div>
-        )}
-      </header>
-
-      {/* Desktop Header */}
-      <header className="desktop-header">
-        <div className="desktop-header-left">
-          <div className="hamburger" onClick={() => setShowMenu(!showMenu)}>☰</div>
-          <h3>Price List</h3>
-        </div>
-        <div className="desktop-header-right">
-          <div className="desktop-search-group">
-            <input 
-              type="text" 
-              placeholder="Search Article..." 
-              value={searchArticle}
-              onChange={(e) => setSearchArticle(e.target.value)}
-              className="desktop-search"
-            />
-            <input 
-              type="text" 
-              placeholder="Search Product..." 
-              value={searchProduct}
-              onChange={(e) => setSearchProduct(e.target.value)}
-              className="desktop-search"
-            />
-          </div>
-          <button className="header-btn primary" onClick={addNewProduct}>+ New Product</button>
-          <button className="header-btn" onClick={() => window.print()}>Print</button>
-          <button className="header-btn" onClick={onLogout}>Logout</button>
-        </div>
-      </header>
-
-      <div className="pl-table">
-        {/* Desktop Table Headers */}
-        <div className="pl-headers">
-          <div>Article No.</div>
-          <div>Product/Service</div>
-          <div>In Price</div>
-          <div>Price</div>
-          <div>Unit</div>
-          <div>In Stock</div>
-          <div>Actions</div>
-        </div>
-
-        {/* Tablet Column Labels */}
-        <div className="tablet-columns">
-          <div>Article</div>
-          <div>Product/Service</div>
-          <div>Price</div>
-          <div></div>
-        </div>
-
-        {/* Mobile Column Labels */}
-        <div className="mobile-columns">
-          <div>Product/Service</div>
-          <div>Price</div>
-          <div></div>
-        </div>
-
-        <div className="pl-rows">
-          {filteredProducts.length === 0 ? (
-            <div className="empty-state">
-              <p>No products found. {searchArticle || searchProduct ? 'Try adjusting your search.' : 'Click + to add a new product.'}</p>
+          <div className="header-user">
+            <img src={USER_AVATAR} alt="User" className="user-avatar" />
+            <div className="user-info">
+              <div className="user-name">John Andre</div>
+              <div className="user-company">Storfjord AS</div>
             </div>
-          ) : (
-            filteredProducts.map(p => (
-              <div className="pl-row" key={p.id}>
-                <Input 
-                  value={p.article_no} 
-                  onChange={v => changeField(p.id, 'article_no', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="Article #"
-                />
-                <Input 
-                  value={p.product_service} 
-                  onChange={v => changeField(p.id, 'product_service', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="Product name"
-                />
-                <Input 
-                  value={p.in_price} 
-                  onChange={v => changeField(p.id, 'in_price', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="In price"
-                />
-                <Input 
-                  value={p.price} 
-                  onChange={v => changeField(p.id, 'price', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="Price"
-                />
-                <Input 
-                  value={p.unit} 
-                  onChange={v => changeField(p.id, 'unit', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="Unit"
-                />
-                <Input 
-                  value={p.in_stock} 
-                  onChange={v => changeField(p.id, 'in_stock', v)} 
-                  onBlur={() => saveProduct(p)}
-                  placeholder="Stock"
-                />
-                <div className="row-actions">
-                  <button 
-                    className="row-menu-btn" 
-                    onClick={() => setSelectedProduct(selectedProduct === p.id ? null : p.id)}
-                    title="More options"
-                  >
-                    ⋯
-                  </button>
-                  {selectedProduct === p.id && (
-                    <div className="row-menu-dropdown">
-                      <button onClick={() => deleteProduct(p.id)}>Delete</button>
-                      <button onClick={() => setSelectedProduct(null)}>Cancel</button>
-                    </div>
-                  )}
+          </div>
+        </div>
+        <div className="header-right">
+          <div className="lang-selector" onClick={() => setLangDropdownOpen(!langDropdownOpen)}>
+            <span className="lang-text">{lang === 'en' ? 'English' : 'Svenska'}</span>
+            <img src={lang === 'en' ? FLAG_GB : FLAG_SE} alt="Flag" className="lang-flag" />
+            <span className="arrow">▼</span>
+            {langDropdownOpen && (
+              <div className="lang-dropdown">
+                <div className="lang-option" onClick={() => setLang('en')}>
+                  <span>English</span>
+                  <img src={FLAG_GB} alt="English" className="lang-flag-small" />
+                </div>
+                <div className="lang-option" onClick={() => setLang('se')}>
+                  <span>Svenska</span>
+                  <img src={FLAG_SE} alt="Svenska" className="lang-flag-small" />
                 </div>
               </div>
-            ))
-          )}
+            )}
+          </div>
         </div>
+      </header>
+
+      <div className="main-layout">
+        {/* Sidebar Overlay */}
+        {showMenu && <div className="sidebar-overlay" onClick={() => setShowMenu(false)}></div>}
+
+        {/* Sidebar */}
+        <aside className={`sidebar ${showMenu ? 'open' : ''}`}>
+          <div className="sidebar-header-mobile">
+            <div className="sidebar-title">Menu</div>
+            <button className="close-sidebar" onClick={() => setShowMenu(false)}>✕</button>
+          </div>
+          <div className="sidebar-title desktop-only">Menu</div>
+          <nav className="sidebar-menu">
+            <a href="#" className="menu-item">
+              <span className="icon">📄</span> Invoices
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">👤</span> Customers
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">⚙️</span> My Business
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">📓</span> Invoice Journal
+            </a>
+            <a href="#" className="menu-item active">
+              <span className="active-indicator">●</span>
+              <span className="icon">🏷️</span> Price List
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">📑</span> Multiple Invoicing
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">❌</span> Unpaid Invoices
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">📝</span> Offer
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">📦</span> Inventory Control
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">💳</span> Member Invoicing
+            </a>
+            <a href="#" className="menu-item">
+              <span className="icon">☁️</span> Import/Export
+            </a>
+            <a href="#" className="menu-item logout" onClick={onLogout}>
+              <span className="icon">🚪</span> Log out
+            </a>
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="content-area">
+          {/* Action Bar */}
+          <div className="action-bar">
+            <div className="search-group">
+              <div className="search-input-wrapper">
+                <input
+                  type="text"
+                  placeholder="Search Article No..."
+                  value={searchArticle}
+                  onChange={(e) => setSearchArticle(e.target.value)}
+                />
+                <span className="search-icon">🔍</span>
+              </div>
+              <div className="search-input-wrapper">
+                <input
+                  type="text"
+                  placeholder="Search Product..."
+                  value={searchProduct}
+                  onChange={(e) => setSearchProduct(e.target.value)}
+                />
+                <span className="search-icon">🔍</span>
+              </div>
+            </div>
+            <div className="button-group">
+              <button className="btn-pill btn-new" onClick={addNewProduct}>
+                New Product <span className="btn-icon">⊕</span>
+              </button>
+              <button className="btn-pill btn-print" onClick={() => window.print()}>
+                Print List <span className="btn-icon">🖨️</span>
+              </button>
+              <button className="btn-pill btn-advanced">
+                Advanced mode <span className="btn-icon">⚙️</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Product List */}
+          <div className="product-list-container">
+            <div className="list-header">
+              <div className="col-article">Article No. ↓</div>
+              <div className="col-product">Product/Service ↓</div>
+              <div className="col-inprice">In Price</div>
+              <div className="col-price">Price</div>
+              <div className="col-unit">Unit</div>
+              <div className="col-stock">In Stock</div>
+              <div className="col-desc">Description</div>
+            </div>
+
+            <div className="list-body">
+              {filteredProducts.map(p => (
+                <div className={`list-row ${selectedProduct === p.id ? 'selected' : ''}`} key={p.id}>
+                  {selectedProduct === p.id && <div className="row-indicator">→</div>}
+                  <div className="col-article">
+                    <Input
+                      value={p.article_no}
+                      onChange={v => changeField(p.id, 'article_no', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-product">
+                    <Input
+                      value={p.product_service}
+                      onChange={v => changeField(p.id, 'product_service', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-inprice">
+                    <Input
+                      value={p.in_price}
+                      onChange={v => changeField(p.id, 'in_price', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-price">
+                    <Input
+                      value={p.price}
+                      onChange={v => changeField(p.id, 'price', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-unit">
+                    <Input
+                      value={p.unit}
+                      onChange={v => changeField(p.id, 'unit', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-stock">
+                    <Input
+                      value={p.in_stock}
+                      onChange={v => changeField(p.id, 'in_stock', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                  </div>
+                  <div className="col-desc">
+                    <Input
+                      value={p.description}
+                      onChange={v => changeField(p.id, 'description', v)}
+                      onBlur={() => saveProduct(p)}
+                    />
+                    <button
+                      className="row-menu-trigger"
+                      onClick={() => setSelectedProduct(selectedProduct === p.id ? null : p.id)}
+                    >
+                      ⋯
+                    </button>
+                    {selectedProduct === p.id && (
+                      <div className="row-actions-popup">
+                        <button onClick={() => deleteProduct(p.id)}>Delete</button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );
