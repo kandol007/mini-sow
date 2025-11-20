@@ -64,7 +64,7 @@ export default function Terms({ onBack }) {
 
   return (
     <>
-      <div className="terms-page-wrapper" style={{ backgroundImage: `url(${WALLPAPER})` }}>
+      <div className="terms-page-wrapper" style={{ backgroundImage: `url(${WALLPAPER})`, '--bg-url': `url(${WALLPAPER})` }}>
         {/* Top Navigation */}
         <nav className={`terms-nav ${navHidden ? 'hidden' : ''}`}>
           {/* Hamburger button – visible on mobile */}

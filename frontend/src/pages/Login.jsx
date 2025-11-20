@@ -27,7 +27,7 @@ export default function Login({ onLogin, onShowTerms }) {
       alert('Please enter both email and password');
       return;
     }
-    
+
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
@@ -52,91 +52,91 @@ export default function Login({ onLogin, onShowTerms }) {
   }
 
   return (
-    <div className="login-background" style={{ backgroundImage: `url(${WALLPAPER})` }}>
+    <div className="login-background" style={{ backgroundImage: `url(${WALLPAPER})`, '--bg-url': `url(${WALLPAPER})` }}>
       {/* Top Navigation */}
       <nav className="login-nav">
 
-  {/* Hamburger button */}
-  <button 
-    className="hamburger" 
-    onClick={() => setMenuOpen(!menuOpen)}
-  >
-    ☰
-  </button>
+        {/* Hamburger button */}
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
 
-  {/* ONE AND ONLY — Language Selector */}
-  <div className="nav-lang">
-    <div className="lang-drop-container">
-      <div 
-        className={`lang-drop-button ${langDropOpen ? 'open' : ''}`}
-        onClick={() => setLangDropOpen(!langDropOpen)}
-      >
-        <span className="collectionItem">
-          {lang === 'en' ? 'English' : 'Svenska'}
-        </span>
+        {/* ONE AND ONLY — Language Selector */}
+        <div className="nav-lang">
+          <div className="lang-drop-container">
+            <div
+              className={`lang-drop-button ${langDropOpen ? 'open' : ''}`}
+              onClick={() => setLangDropOpen(!langDropOpen)}
+            >
+              <span className="collectionItem">
+                {lang === 'en' ? 'English' : 'Svenska'}
+              </span>
 
-        <img 
-          src={lang === 'en' ? FLAG_GB : FLAG_SE} 
-          alt={lang === 'en' ? 'English' : 'Svenska'}
-          className="icon-flag-nav"
-        />
+              <img
+                src={lang === 'en' ? FLAG_GB : FLAG_SE}
+                alt={lang === 'en' ? 'English' : 'Svenska'}
+                className="icon-flag-nav"
+              />
 
-        <span className="arrow">▼</span>
-      </div>
+              <span className="arrow">▼</span>
+            </div>
 
-      <div className={`dropdownList ${langDropOpen ? 'show' : ''}`}>
-        <div className="language-box">
-          <div 
-            className="flag-name"
-            onClick={() => { setLang('se'); setLangDropOpen(false); }}
-          >
-            <span className="collectionItem">Svenska</span>
-            <img src={FLAG_SE} alt="Svenska" className="icon-flag-nav" />
-          </div>
+            <div className={`dropdownList ${langDropOpen ? 'show' : ''}`}>
+              <div className="language-box">
+                <div
+                  className="flag-name"
+                  onClick={() => { setLang('se'); setLangDropOpen(false); }}
+                >
+                  <span className="collectionItem">Svenska</span>
+                  <img src={FLAG_SE} alt="Svenska" className="icon-flag-nav" />
+                </div>
 
-          <div 
-            className="flag-name"
-            onClick={() => { setLang('en'); setLangDropOpen(false); }}
-          >
-            <span className="collectionItem">English</span>
-            <img src={FLAG_GB} alt="English" className="icon-flag-nav" />
+                <div
+                  className="flag-name"
+                  onClick={() => { setLang('en'); setLangDropOpen(false); }}
+                >
+                  <span className="collectionItem">English</span>
+                  <img src={FLAG_GB} alt="English" className="icon-flag-nav" />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-      </div>
 
-    </div>
-  </div>
+        {/* Logo */}
+        <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
+          <img src={LOGO} alt="logo" className="nav-logo" />
+        </div>
 
-  {/* Logo */}
-  <div className="nav-left" style={{ display: menuOpen ? 'none' : 'flex' }}>
-    <img src={LOGO} alt="logo" className="nav-logo" />
-  </div>
+        {/* Desktop nav links */}
+        <div className="nav-right">
+          <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
+          <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
+          <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
+          <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
+          <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
+        </div>
 
-  {/* Desktop nav links */}
-  <div className="nav-right">
-    <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
-    <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
-    <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
-    <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
-    <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
-  </div>
+        {/* Mobile Menu */}
+        <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
+          <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
+          <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
+          <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
+          <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
+          <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
+        </div>
 
-  {/* Mobile Menu */}
-  <div className={`mobile-nav-menu ${menuOpen ? "open" : ""}`}>
-    <a href="#" className="nav-link">{texts['nav.home'] || 'Hem'}</a>
-    <a href="#" className="nav-link">{texts['nav.order'] || 'Beställ'}</a>
-    <a href="#" className="nav-link">{texts['nav.customers'] || 'Våra Kunder'}</a>
-    <a href="#" className="nav-link">{texts['nav.about'] || 'Om oss'}</a>
-    <a href="#" className="nav-link">{texts['nav.contact'] || 'Kontakta oss'}</a>
-  </div>
-
-</nav>
+      </nav>
 
       {/* Login Card - Centered */}
       <div className="login-content">
         <div className="login-card">
           <h2 className="login-title">{texts['login.title'] || 'Logga in'}</h2>
-          
+
           <div className="login-form">
             <div className="form-group">
               <label className="form-label">{texts['login.email.label'] || 'Skriv in din epost adress'}</label>

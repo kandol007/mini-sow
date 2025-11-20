@@ -47,6 +47,8 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
+  z-index: 0;
 }
 
 /* Login Navigation */
@@ -395,6 +397,50 @@ html {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
+  z-index: 0;
+}
+
+/* Fixed-background fallback for mobile (iOS/Android) using a fixed pseudo-element.
+   Usage: if your element sets the background-image inline (e.g. via style="background-image:url(...)")
+   add an inline CSS variable instead: style="--bg-url: url('/path/to/image.jpg')" and
+   keep the same class (e.g. `login-background`). The pseudo-element will be used on
+   small screens where `background-attachment: fixed` is not reliably supported.
+*/
+.login-background::before,
+.terms-page-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--bg-url, none);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+/* Use the pseudo-element on mobile where fixed backgrounds are unsupported.
+   On larger screens keep the original background behavior. */
+@media (max-width: 768px) {
+  .login-background,
+  .terms-page-wrapper {
+    /* remove background-attachment on mobile to avoid double-drawing issues */
+    background-attachment: scroll;
+  }
+
+  .login-background::before,
+  .terms-page-wrapper::before {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .login-background::before,
+  .terms-page-wrapper::before {
+    display: none;
+  }
 }
 
 .terms-nav {
@@ -1347,8 +1393,7 @@ html {
 .flag-icon:hover {
   opacity: 1 !important;
 }
-}
-}
+ 
 
 /* Mobile (≤ 480px) - LOGIN & TERMS */
 @media (max-width: 480px) {
