@@ -136,7 +136,7 @@ html {
   margin-top: 0;
   box-sizing: border-box;
   position: absolute;
-  top: 56px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   width: min(60%, calc(100% - 48px));
@@ -157,7 +157,7 @@ html {
 
 /* Login page: align the menu under the hamburger */
 .login-nav .mobile-nav-menu {
-  left: 1.5rem;
+  left: 2rem;
   transform: none;
   right: auto;
   width: min(60%, calc(100% - 48px));
@@ -418,6 +418,13 @@ html {
 
 .terms-nav .hamburger {
   display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
 }
 
 .terms-scroll-container {
@@ -1059,30 +1066,33 @@ html {
   }
 
   .terms-nav .hamburger {
+    display: block;
     position: absolute !important;
     display: block;
     left: 2.5rem !important;
     top: 1.5rem !important;
-    order: 1;
+    z-index: 9999 !important;
   }
 
   .terms-nav .nav-left {
     display: none !important;
   }
 
-  .terms-nav .mobile-nav-menu {
-    position: absolute;
-    top: 56px;
-    left: 2.5rem;
-    width: min(60%, calc(100% - 32px));
-    max-height: 0;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 18px 40px rgba(2, 12, 27, 0.18);
-    padding: 0;
-    z-index: 9999;
-  }
+ .terms-nav .mobile-nav-menu {
+  position: absolute;
+  top: 70px;
+  left: 2rem;
+  transform: none;
+  right: auto;
+  width: min(60%, calc(100% - 48px));
+  max-height: 0;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 18px 40px rgba(2, 12, 27, 0.18);
+  padding: 0;
+  z-index: 9999;
+}
 
   .terms-nav .mobile-nav-menu.open {
     max-height: 420px;
@@ -1091,12 +1101,15 @@ html {
   }
 
   .terms-nav .mobile-nav-menu .nav-link {
+    position: relative;
     font-size: 15px;
     font-weight: 600;
     padding: 1.5rem 2rem;
     display: block;
     color: rgba(0, 0, 0, 0.9);
     height: auto;
+    left: 2rem;
+    right: auto;
   }
 
   .terms-mobile-lang {
@@ -1906,3 +1919,4 @@ html {
   border-radius: 2px;
   object-fit: cover;
 }
+
